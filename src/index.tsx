@@ -20,3 +20,13 @@ const Web3authSingleFactor = NativeModules.Web3authSingleFactor
 export function multiply(a: number, b: number): Promise<number> {
   return Web3authSingleFactor.multiply(a, b);
 }
+
+export function add(a: number, b: number): Promise<number> {
+  return Web3authSingleFactor.add(a, b);
+}
+
+export function getTorusKey(network: String, verifier: String, email: String, idToken: String): Promise<String> {
+  return Web3authSingleFactor.getTorusKey(network, verifier, email, idToken);
+}
+
+
