@@ -2,25 +2,8 @@ import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
 import { multiply, add, getTorusKey} from 'react-native-web3auth-single-factor';
-import { sign } from "react-native-pure-jwt";
 
 const jwtPrivateKey = `-----BEGIN PRIVATE KEY-----\nMEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCCD7oLrcKae+jVZPGx52Cb/lKhdKxpXjl9eGNa1MlY57A==\n-----END PRIVATE KEY-----`;
-
-const idToken = sign(
-  {
-    sub: "email|hello",
-    aud : "torus-key-test",
-    iss: "hello@tor.us",
-    exp: new Date().getTime() + 3600 * 1000, // expiration date, required, in ms, absolute to 1/1/1970
-    additional: "payload"
-  }, // body
-  jwtPrivateKey, // secret
-  {
-    alg: "HS256"
-  }
-)
-  .then(console.log) // token as the only argument
-  .catch(console.error); 
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
@@ -32,7 +15,7 @@ export default function App() {
     getTorusKey('testnet',
     'torus-test-health',
     'hello@tor.us',
-    '')
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJzdWIiOiJlbWFpbHxoZWxsbyIsImF1ZCI6InRvcnVzLWtleS10ZXN0IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6InRvcnVzLWtleS10ZXN0Iiwibmlja25hbWUiOiJoZWxsbyIsIm5hbWUiOiJoZWxsb0B0b3IudXMiLCJleHAiOjE2NzU3NDQ1MDgsImlhdCI6MTY3NTc0MDkwOCwiZW1haWwiOiJoZWxsb0B0b3IudXMiLCJwaWN0dXJlIjoiIn0.xVfVX1hnoiv60ZckLoZPbEKzyFUyqQOpt6iBGXKC4lv4l3PoD-ddQHcEcurv8SYy93UD6M6ejXVpDtf1wXvHjA')
     .then(setWeb3AuthResult);
   }, []);
 
