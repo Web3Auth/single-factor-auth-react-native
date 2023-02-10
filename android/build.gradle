@@ -37,7 +37,7 @@ android {
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
 
   defaultConfig {
-    minSdkVersion getExtOrIntegerDefault("minSdkVersion")
+    minSdkVersion 24
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
     buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
   }
@@ -74,6 +74,11 @@ dependencies {
   implementation "com.github.web3auth:single-factor-auth-java:0.0.3"
   implementation "org.torusresearch:fetch-node-details-java:3.1.0"
   implementation "net.sourceforge.streamsupport:streamsupport-cfuture:1.7.4"
+  api 'io.jsonwebtoken:jjwt-api:0.11.5'
+  runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+  runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.11.5') {
+    exclude group: 'org.json', module: 'json' //provided by Android natively
+  }
 }
 
 if (isNewArchitectureEnabled()) {

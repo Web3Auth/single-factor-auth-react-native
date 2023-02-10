@@ -17,16 +17,18 @@ const Web3authSingleFactor = NativeModules.Web3authSingleFactor
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return Web3authSingleFactor.multiply(a, b);
+export function getAggregateTorusKey(network: String, verifier: String, verifierId: String, idToken: String,
+   aggregateVerifier: string): Promise<string> {
+  return Web3authSingleFactor.getAggregateTorusKey(network, verifier, verifierId, idToken, aggregateVerifier);
 }
 
-export function add(a: number, b: number): Promise<number> {
-  return Web3authSingleFactor.add(a, b);
+export function testTorusKey(network: String, verifier: String, verifierId: String, idToken: String): Promise<string> {
+  return Web3authSingleFactor.testTorusKey(network, verifier, verifierId, idToken);
 }
 
-export function getTorusKey(network: String, verifier: String, email: String, idToken: String): Promise<String> {
-  return Web3authSingleFactor.getTorusKey(network, verifier, email, idToken);
+export function getTorusKey(network: String, verifier: String, verifierId: String, idToken: String): Promise<String> {
+  return Web3authSingleFactor.getTorusKey(network, verifier, verifierId, idToken);
 }
+
 
 
