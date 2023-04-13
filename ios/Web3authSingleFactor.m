@@ -1,11 +1,23 @@
 #import <React/RCTBridgeModule.h>
 #import "SingleFactorAuth.h"
 
-@interface RCT_EXTERN_MODULE(Web3authSingleFactor, NSObject)
+(TorusNetwork *)getNetwork:(NSString *)network {
+  if ([network isEqualToString:@"mainnet"]) {
+    return TorusNetwork.MAINNET;
+  } else if ([network isEqualToString:@"testnet"]) {
+    return TorusNetwork.TESTNET;
+  } else if ([network isEqualToString:@"aqua"]) {
+    return TorusNetwork.AQUA;
+  } else if ([network isEqualToString:@"cyan"]) {
+    return TorusNetwork.CYAN;
+  } else if ([network isEqualToString:@"celeste"]) {
+    return TorusNetwork.CELESTE;
+  } else {
+    return TorusNetwork.MAINNET;
+  }
+}
 
-RCT_EXTERN_METHOD(multiply:(float)a withB:(float)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
+@interface RCT_EXTERN_MODULE(Web3authSingleFactor, NSObject)
 
 RCT_EXTERN_METHOD(getAggregateTorusKey: (NSString *)network verifier:(NSString *)verifier verifierId:(NSString *)verifierId idToken:(NSString *)idToken aggregateVerifier:(NSString *)aggregateVerifier
                   resolver: (RCTPromiseResolveBlock)resolve
@@ -22,7 +34,7 @@ RCT_EXTERN_METHOD(getAggregateTorusKey: (NSString *)network verifier:(NSString *
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 {
-    SingleFactorAuthArgs *args = [[SingleFactorAuthArgs alloc] initWithNetwork:network];
+    SingleFactorAuthArgs *args = [[SingleFactorAuthArgs alloc] initWithNetwork:getNetwork(network)];
     SingleFactorAuth *sfa = [[SingleFactorAuth alloc] initWithSingleFactorAuthArgs:args];
 
     NSMutableArray<TorusSubVerifierInfo *> *subVerifierInfoArray = [[NSMutableArray alloc] init];
@@ -45,7 +57,7 @@ RCT_EXTERN_METHOD(getKey: (NSString *)network verifier:(NSString *)verifier veri
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 {
-    SingleFactorAuthArgs *args = [[SingleFactorAuthArgs alloc] initWithNetwork:network];
+    SingleFactorAuthArgs *args = [[SingleFactorAuthArgs alloc] initWithNetwork:getNetwork(network)];
     SingleFactorAuth *sfa = [[SingleFactorAuth alloc] initWithSingleFactorAuthArgs:args];
     LoginParams *loginParams = [[LoginParams alloc] initWithVerifier:verifier verifierId:verifierId idToken:idToken];
 
@@ -56,14 +68,6 @@ RCT_EXTERN_METHOD(getKey: (NSString *)network verifier:(NSString *)verifier veri
         }
         resolve([key dictionaryRepresentation]);
     }];
-}
-
-@end
-
-
-+ (BOOL)requiresMainQueueSetup
-{
-  return NO;
 }
 
 @end

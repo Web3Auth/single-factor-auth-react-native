@@ -29,9 +29,8 @@ class Web3authSingleFactorModule(reactContext: ReactApplicationContext) :
   // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
   fun getAggregateTorusKey(network: String, verifier: String, verifierId: String, idToken: String, aggregateVerifier: String, promise: Promise) {
-    singleFactorAuthArgs = SingleFactorAuthArgs(getNetwork(network))
+     singleFactorAuthArgs = SingleFactorAuthArgs(getNetwork(network))
      singleFactorAuth = SingleFactorAuth(singleFactorAuthArgs)
-     val idToken = JwtUtils.generateIdToken(verifierId)
      loginParams = LoginParams(aggregateVerifier, verifierId, idToken,
             arrayOf(TorusSubVerifierInfo(verifier, idToken)))
      val torusKeyCF = singleFactorAuth.getKey(loginParams)
