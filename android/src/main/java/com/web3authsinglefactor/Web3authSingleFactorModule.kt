@@ -1,6 +1,5 @@
 package com.web3authsinglefactor
 
-import com.auth0.jwt.algorithms.Algorithm
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -18,8 +17,6 @@ class Web3authSingleFactorModule(reactContext: ReactApplicationContext) :
   private lateinit var singleFactorAuth: SingleFactorAuth
   private lateinit var singleFactorAuthArgs: SingleFactorAuthArgs
   private lateinit var loginParams: LoginParams
-  private lateinit var algorithmRs: Algorithm
-  private var key = "-----BEGIN PRIVATE KEY-----\nMEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCCD7oLrcKae+jVZPGx52Cb/lKhdKxpXjl9eGNa1MlY57A==\n-----END PRIVATE KEY-----"
 
   override fun getName(): String {
     return NAME

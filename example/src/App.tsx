@@ -17,7 +17,7 @@ export default function App() {
   }
 
   React.useEffect(() => {
-    // Used for testing getTorusKey() function i.e. for testnet, cyan or aqua network
+    // Used for testing getTorusKey() function i.e. for testnet
     // testTorusKey(TorusNetwork.Aqua,
     //  verifier,
     //  verifierId,
@@ -53,12 +53,7 @@ export default function App() {
       <Button
         title = "Aqua TorusKey" 
         onPress={() => testTorusKey(TorusNetwork.Aqua, verifier, verifierId, token).then(setSFAResult)}               
-        />
-      <View style={styles.space} />  
-      <Button
-        title = "Aggregate Testnet TorusKey" 
-        onPress={() => getAggregateTorusKey(TorusNetwork.Testnet, verifier, verifierId, token, aggregateVerifier).then(setSFAResult)}               
-        />  
+        /> 
       </View>
       <Text>Private Key: {sfaResult}</Text>
     </View>
