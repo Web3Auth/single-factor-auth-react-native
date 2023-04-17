@@ -1,5 +1,4 @@
 #import <React/RCTBridgeModule.h>
-#import "SingleFactorAuth.h"
 
 (TorusNetwork *)getNetwork:(NSString *)network {
   if ([network isEqualToString:@"mainnet"]) {
