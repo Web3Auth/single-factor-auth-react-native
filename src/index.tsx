@@ -17,18 +17,27 @@ const Web3authSingleFactor = NativeModules.Web3authSingleFactor
       }
     );
 
-export function getAggregateTorusKey(network: String, verifier: String, verifierId: String, idToken: String,
+export function init(network: String): Promise<void> {
+  return Web3authSingleFactor.init(network);
+}   
+
+export function getTorusKey(verifier: String, verifierId: String, idToken: String): Promise<String> {
+  return Web3authSingleFactor.getTorusKey(verifier, verifierId, idToken);
+}    
+
+export function getAggregateTorusKey(verifier: String, verifierId: String, idToken: String,
    aggregateVerifier: string): Promise<string> {
-  return Web3authSingleFactor.getAggregateTorusKey(network, verifier, verifierId, idToken, aggregateVerifier);
+  return Web3authSingleFactor.getAggregateTorusKey(verifier, verifierId, idToken, aggregateVerifier);
 }
 
-export function testTorusKey(network: String, verifier: String, verifierId: String, idToken: String): Promise<string> {
-  return Web3authSingleFactor.testTorusKey(network, verifier, verifierId, idToken);
+export function initialize(): Promise<String> {
+  return Web3authSingleFactor.initialize();
 }
 
-export function getTorusKey(network: String, verifier: String, verifierId: String, idToken: String): Promise<String> {
-  return Web3authSingleFactor.getTorusKey(network, verifier, verifierId, idToken);
+export function testTorusKey(verifier: String, verifierId: String, idToken: String): Promise<string> {
+  return Web3authSingleFactor.testTorusKey(verifier, verifierId, idToken);
 }
+
 
 
 

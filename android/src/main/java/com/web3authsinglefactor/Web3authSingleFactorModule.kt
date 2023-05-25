@@ -4,11 +4,11 @@ import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import com.github.web3auth.singlefactorauth.SingleFactorAuth
-import com.github.web3auth.singlefactorauth.types.LoginParams
-import com.github.web3auth.singlefactorauth.types.SingleFactorAuthArgs
+import com.web3auth.singlefactorauth.SingleFactorAuth
+import com.web3auth.singlefactorauth.types.LoginParams
+import com.web3auth.singlefactorauth.types.SingleFactorAuthArgs
+import com.web3auth.singlefactorauth.types.TorusSubVerifierInfo
 import org.torusresearch.fetchnodedetails.types.TorusNetwork
-import com.github.web3auth.singlefactorauth.types.TorusSubVerifierInfo
 import java.math.BigInteger
 
 class Web3authSingleFactorModule(reactContext: ReactApplicationContext) :
@@ -17,6 +17,7 @@ class Web3authSingleFactorModule(reactContext: ReactApplicationContext) :
   private lateinit var singleFactorAuth: SingleFactorAuth
   private lateinit var singleFactorAuthArgs: SingleFactorAuthArgs
   private lateinit var loginParams: LoginParams
+  private var context: ReactApplicationContext = reactContext
 
   override fun getName(): String {
     return NAME
@@ -24,14 +25,33 @@ class Web3authSingleFactorModule(reactContext: ReactApplicationContext) :
 
   // Example method
   // See https://reactnative.dev/docs/native-modules-android
+
   @ReactMethod
-  fun getAggregateTorusKey(network: String, verifier: String, verifierId: String, idToken: String, aggregateVerifier: String, promise: Promise) {
+  fun init(network: String) {
     singleFactorAuthArgs = SingleFactorAuthArgs(getNetwork(network))
-     singleFactorAuth = SingleFactorAuth(singleFactorAuthArgs)
-     val idToken = JwtUtils.generateIdToken(verifierId)
-     loginParams = LoginParams(aggregateVerifier, verifierId, idToken,
+    singleFactorAuth = SingleFactorAuth(singleFactorAuthArgs)
+  }
+
+  @ReactMethod
+  fun initialize(promise: Promise) {
+    val torusKeyCF = singleFactorAuth.initialize(context)
+    torusKeyCF.join()
+    var privateKey = BigInteger.ZERO
+    torusKeyCF.whenComplete { key, error ->
+      if (error == null) {
+        privateKey = key.privateKey
+      } else {
+        throw Error(error)
+      }
+    }
+    promise.resolve(privateKey.toString(16))
+  }
+
+  @ReactMethod
+  fun getAggregateTorusKey(verifier: String, verifierId: String, idToken: String, aggregateVerifier: String, promise: Promise) {
+    loginParams = LoginParams(aggregateVerifier, verifierId, idToken,
             arrayOf(TorusSubVerifierInfo(verifier, idToken)))
-     val torusKeyCF = singleFactorAuth.getKey(loginParams)
+     val torusKeyCF = singleFactorAuth.getKey(loginParams, context)
      torusKeyCF.join()
      var privateKey = BigInteger.ZERO
      torusKeyCF.whenComplete { key, error ->
@@ -45,12 +65,10 @@ class Web3authSingleFactorModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun testTorusKey(network: String, verifier: String, verifierId: String, idToken: String, promise: Promise) {
-     singleFactorAuthArgs = SingleFactorAuthArgs(getNetwork(network))
-     singleFactorAuth = SingleFactorAuth(singleFactorAuthArgs)
+  fun testTorusKey(verifier: String, verifierId: String, idToken: String, promise: Promise) {
      val idToken = JwtUtils.generateIdToken(verifierId)
      loginParams = LoginParams(verifier, verifierId, idToken)
-     val torusKeyCF = singleFactorAuth.getKey(loginParams)
+     val torusKeyCF = singleFactorAuth.getKey(loginParams, context)
      torusKeyCF.join()
      var privateKey = BigInteger.ZERO
      torusKeyCF.whenComplete { key, error ->
@@ -64,11 +82,9 @@ class Web3authSingleFactorModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun getTorusKey(network: String, verifier: String, verifierId: String, idToken: String, promise: Promise) {
-     singleFactorAuthArgs = SingleFactorAuthArgs(getNetwork(network))
-     singleFactorAuth = SingleFactorAuth(singleFactorAuthArgs)
+  fun getTorusKey(verifier: String, verifierId: String, idToken: String, promise: Promise) {
      loginParams = LoginParams(verifier, verifierId, idToken)
-     val torusKeyCF = singleFactorAuth.getKey(loginParams)
+     val torusKeyCF = singleFactorAuth.getKey(loginParams, context)
      torusKeyCF.join()
      var privateKey = BigInteger.ZERO
      torusKeyCF.whenComplete { key, error ->

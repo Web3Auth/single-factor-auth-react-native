@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {Button, StyleSheet, View, Text} from 'react-native';
-import {testTorusKey, getTorusKey, getAggregateTorusKey} from 'react-native-web3auth-single-factor';
+import {testTorusKey, getTorusKey, getAggregateTorusKey, init, initialize} from 'react-native-web3auth-single-factor';
 
 export default function App() {
   const [sfaResult, setSFAResult] = React.useState<String | undefined>();
@@ -17,20 +17,26 @@ export default function App() {
   }
 
   React.useEffect(() => {
-    // Used for testing getTorusKey() function i.e. for testnet
-    // testTorusKey(TorusNetwork.Aqua,
+    // Used testTorusKey() function only for testing
+    // testTorusKey(TorusNetwork.Testnet,
     //  verifier,
     //  verifierId,
     //  token)
-    // .then(setSFAResult);
     
-    // Used getTorusKey() for getting private Key in production i.e. for Mainnet network.
-
+    
+    // Used getTorusKey() for getting private Key in production.
     // getTorusKey(TorusNetwork.Testnet,
     //  verifier,
     //  verifierId,
     //  token)
     // .then(setSFAResult);
+
+      init(TorusNetwork.Testnet)
+
+      initialize().then(function(state) {
+        setSFAResult(state || "no key")  
+       });
+
     }, []);
 
   return (
@@ -41,19 +47,10 @@ export default function App() {
       <View style={styles.headermargin} />
       <View style={styles.margin}>
       <Button
-        title = "Testnet TorusKey" 
-        onPress={() => testTorusKey(TorusNetwork.Testnet, verifier, verifierId, token).then(setSFAResult)}             
+        title = "Get TorusKey" 
+        onPress={() => testTorusKey(verifier, verifierId, token).then(setSFAResult)}             
         />
       <View style={styles.space} />  
-      <Button
-        title = "Cyan TorusKey" 
-        onPress={() => testTorusKey(TorusNetwork.Cyan, verifier, verifierId, token).then(setSFAResult)}               
-        />
-      <View style={styles.space} />  
-      <Button
-        title = "Aqua TorusKey" 
-        onPress={() => testTorusKey(TorusNetwork.Aqua, verifier, verifierId, token).then(setSFAResult)}               
-        /> 
       </View>
       <Text>Private Key: {sfaResult}</Text>
     </View>
