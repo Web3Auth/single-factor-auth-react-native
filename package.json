@@ -1,6 +1,6 @@
 {
   "name": "@web3auth/single-factor-auth-react-native",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Web3Auth SDK that supports Bare (Standalone) and Expo React Native apps.",
   "main": "dist/singleFactorAuthReactNative.cjs.js",
   "module": "dist/singleFactorAuthReactNative.esm.js",
