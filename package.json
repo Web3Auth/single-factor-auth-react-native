@@ -1,9 +1,9 @@
 {
-  "name": "@web3auth/sfa-react-native",
+  "name": "@web3auth/single-factor-auth-react-native",
   "version": "0.3.0",
   "description": "Web3Auth SDK that supports Bare (Standalone) and Expo React Native apps.",
-  "main": "dist/sfaReactNative.cjs.js",
-  "module": "dist/sfaReactNative.esm.js",
+  "main": "dist/singleFactorAuthReactNative.cjs.js",
+  "module": "dist/singleFactorAuthReactNative.esm.js",
   "source": "src/index.ts",
   "types": "dist/types/index.d.ts",
   "files": [
@@ -36,8 +36,8 @@
     "web3auth"
   ],
   "dependencies": {
-    "@toruslabs/openlogin-utils": "^4.5.1",
-    "@web3auth/base": "^6.1.1",
+    "@toruslabs/openlogin-utils": "^4.7.0",
+    "@web3auth/base": "^6.1.4",
     "@web3auth/single-factor-auth": "^6.4.1",
     "buffer": "^6.0.3",
     "loglevel": "^1.8.1"
@@ -47,14 +47,14 @@
     "react-native": "*"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.22.3",
+    "@babel/runtime": "^7.22.6",
     "@toruslabs/eslint-config-typescript": "2.0.0",
     "@toruslabs/torus-scripts": "^4.0.0",
     "@types/node": "^18",
     "@types/react-native": "^0.72.2",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
-    "eslint": "^8.42.0",
+    "eslint": "^8.45.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-n": "^15.7.0",
@@ -63,7 +63,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tsdoc": "^0.2.17",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
+    "lint-staged": "^13.2.3",
     "prettier": "^2.8.8",
     "react-native": "~0.71.8",
     "rimraf": "^5.0.1",

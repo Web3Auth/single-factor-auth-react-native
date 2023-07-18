@@ -9,6 +9,7 @@ Web3Auth Single Factor Auth is the SDK that gives you the ability to start with 
 Checkout the official [Web3Auth Documentation](https://web3auth.io/docs) and [SDK Reference](https://web3auth.io/docs/sdk/core-kit/sfa-react-native/) to get started!
 
 ## 💡 Features
+
 - JWT based Web3 Authentication Service
 - Fully decentralized, non-custodial key infrastructure
 - End to end Whitelabelable solution
@@ -30,7 +31,7 @@ Checkout the official [Web3Auth Documentation](https://web3auth.io/docs) and [SD
 ## ⚡ Installation
 
 ```sh
-npm install @web3auth/sfa-react-native
+npm install @web3auth/single-factor-auth-react-native
 ```
 
 ## 🌟 Configuration
@@ -47,13 +48,12 @@ Hop on to the [Web3Auth Dashboard](https://dashboard.web3auth.io/) and create a 
 
 ## 💥 Initialization & Usage
 
-In your sign-in activity', create an `Web3Auth` instance with your Web3Auth project's configurations and 
+In your sign-in activity', create an `Web3Auth` instance with your Web3Auth project's configurations and
 configure it like this:
-
 
 ```js
 import EncryptedStorage from 'react-native-encrypted-storage';
-import Web3Auth from '@web3auth/sfa-react-native';
+import Web3Auth from '@web3auth/single-factor-auth-react-native';
 import {EthereumPrivateKeyProvider} from '@web3auth/ethereum-provider';
 
 export default function App() {
@@ -129,7 +129,7 @@ Checkout the examples for your preferred blockchain and platform in our [example
 
 Checkout the [Web3Auth Demo](https://demo-app.web3auth.io/) to see how Web3Auth can be used in an application.
 
-Further checkout the [example folder](https://github.com/Web3Auth/sfa-react-native/tree/main/demo/sfarndemo) within this repository, which contains a sample app.
+Further checkout the [example folder](https://github.com/Web3Auth/single-factor-auth-react-native/tree/main/demo/sfarndemo) within this repository, which contains a sample app.
 
 ## 💬 Troubleshooting and Support
 

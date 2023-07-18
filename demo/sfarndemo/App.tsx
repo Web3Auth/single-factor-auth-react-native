@@ -14,7 +14,7 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 // @ts-ignore
 import {decode as atob} from 'base-64';
 
-import Web3Auth from '@web3auth/sfa-react-native';
+import Web3Auth from '@web3auth/single-factor-auth-react-native';
 import {EthereumPrivateKeyProvider} from '@web3auth/ethereum-provider';
 
 async function signInWithEmailPassword() {
