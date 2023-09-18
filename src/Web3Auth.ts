@@ -1,5 +1,5 @@
 import { BrowserStorage } from "@toruslabs/openlogin-utils";
-import { CustomChainConfig, SafeEventEmitterProvider, UserAuthInfo, WalletInitializationError, WalletLoginError } from "@web3auth/base";
+import { CustomChainConfig, IProvider, SafeEventEmitterProvider, UserAuthInfo, WalletInitializationError, WalletLoginError } from "@web3auth/base";
 import { IWeb3Auth, Web3Auth as SingleFactorAuth } from "@web3auth/single-factor-auth";
 
 import KeyStore from "./session/KeyStore";
@@ -16,7 +16,7 @@ class Web3Auth implements IWeb3Auth {
 
   private sfaInstance: SingleFactorAuth;
 
-  private privKeyProvider: SafeEventEmitterProvider | null = null;
+  private privKeyProvider: IProvider | null = null;
 
   private storage: BrowserStorage;
 
@@ -33,7 +33,7 @@ class Web3Auth implements IWeb3Auth {
     this.sfaInstance = new SingleFactorAuth(this.params);
   }
 
-  get provider(): SafeEventEmitterProvider | null {
+  get provider(): IProvider | null {
     return this.privKeyProvider;
   }
 

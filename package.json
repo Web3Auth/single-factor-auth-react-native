@@ -38,7 +38,7 @@
   "dependencies": {
     "@toruslabs/openlogin-utils": "^5.0.2",
     "@web3auth/base": "^7.0.1",
-    "@web3auth/single-factor-auth": "^7.0.0",
+    "@web3auth/single-factor-auth": "^7.0.1",
     "buffer": "^6.0.3",
     "loglevel": "^1.8.1"
   },
