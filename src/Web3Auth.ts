@@ -1,5 +1,5 @@
 import { BrowserStorage } from "@toruslabs/openlogin-utils";
-import { CustomChainConfig, IProvider, SafeEventEmitterProvider, UserAuthInfo, WalletInitializationError, WalletLoginError } from "@web3auth/base";
+import { CustomChainConfig, IProvider, UserAuthInfo, WalletInitializationError, WalletLoginError } from "@web3auth/base";
 import { IWeb3Auth, Web3Auth as SingleFactorAuth } from "@web3auth/single-factor-auth";
 
 import KeyStore from "./session/KeyStore";
@@ -75,7 +75,7 @@ class Web3Auth implements IWeb3Auth {
     this.ready = true;
   }
 
-  async connect(params: LoginParams): Promise<SafeEventEmitterProvider> {
+  async connect(params: LoginParams): Promise<IProvider> {
     if (!this.ready) throw WalletInitializationError.notReady("Web3Auth not initialized, please call init first");
     const provider = await this.sfaInstance.connect(params);
 
