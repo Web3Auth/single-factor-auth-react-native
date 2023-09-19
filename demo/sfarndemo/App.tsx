@@ -160,6 +160,7 @@ export default function App() {
   const logout = async () => {
     setPrivateKey(null);
     setUserInfo('');
+    await web3auth!.logout();
   };
 
   const uiConsole = (...args: any) => {

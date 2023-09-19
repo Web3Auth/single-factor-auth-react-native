@@ -1,4 +1,3 @@
-import { CustomChainConfig, SafeEventEmitterProvider, UserAuthInfo } from "@web3auth/base";
 import type { LoginParams, Web3AuthOptions, SessionData, PrivateKeyProvider } from "@web3auth/single-factor-auth";
 
 
