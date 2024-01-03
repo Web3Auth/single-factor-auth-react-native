@@ -1,6 +1,6 @@
-import { BrowserStorage } from "@toruslabs/openlogin-utils";
+import { BrowserStorage, OpenloginUserInfo } from "@toruslabs/openlogin-utils";
 import { CustomChainConfig, IProvider, UserAuthInfo, WalletInitializationError, WalletLoginError } from "@web3auth/base";
-import { IWeb3Auth, Web3Auth as SingleFactorAuth } from "@web3auth/single-factor-auth";
+import { ADAPTER_STATUS, ADAPTER_STATUS_TYPE, IWeb3Auth, SessionData, Web3Auth as SingleFactorAuth } from "@web3auth/single-factor-auth";
 
 import KeyStore from "./session/KeyStore";
 import { EncryptedStorage } from "./types/IEncryptedStorage";
@@ -15,8 +15,6 @@ class Web3Auth implements IWeb3Auth {
   private params: SdkInitOptions;
 
   private sfaInstance: SingleFactorAuth;
-
-  private privKeyProvider: IProvider | null = null;
 
   private storage: BrowserStorage;
 
@@ -34,15 +32,25 @@ class Web3Auth implements IWeb3Auth {
   }
 
   get provider(): IProvider | null {
-    return this.privKeyProvider;
+    return this.sfaInstance?.provider;
   }
 
   get connected(): boolean {
-    return Boolean(this.provider);
+    return Boolean(this.sessionId);
   }
 
   get sessionId(): string {
     return this.sfaInstance?.sessionId || "";
+  }
+
+  get status(): ADAPTER_STATUS_TYPE {
+    if (this.ready && !this.connected) return ADAPTER_STATUS.READY;
+    if (this.connected) return ADAPTER_STATUS.CONNECTED;
+    return ADAPTER_STATUS.NOT_READY;
+  }
+
+  get state(): SessionData {
+    return this.sfaInstance.state;
   }
 
   authenticateUser(): Promise<UserAuthInfo> {
@@ -70,8 +78,6 @@ class Web3Auth implements IWeb3Auth {
     if (sessionId) this.storage.set("sessionId", sessionId);
     await this.sfaInstance.init(provider);
 
-    // this means the user is logged in.
-    if (this.sfaInstance.provider) this.privKeyProvider = this.sfaInstance.provider;
     this.ready = true;
   }
 
@@ -79,12 +85,9 @@ class Web3Auth implements IWeb3Auth {
     if (!this.ready) throw WalletInitializationError.notReady("Web3Auth not initialized, please call init first");
     const provider = await this.sfaInstance.connect(params);
 
-    // if we are here, then login is successful.
-    this.privKeyProvider = provider;
-
     // store the sessionId in the keyStore.
     await this.keyStore.set("sessionId", this.sfaInstance.sessionId);
-    return this.provider;
+    return provider;
   }
 
   async logout(): Promise<void> {
@@ -92,8 +95,11 @@ class Web3Auth implements IWeb3Auth {
     if (!this.connected) throw WalletLoginError.userNotLoggedIn("user is not logged in.");
     await this.sfaInstance.logout();
     this.keyStore.remove("sessionId");
-    this.privKeyProvider = null;
     this.ready = false;
+  }
+
+  getUserInfo(): Promise<OpenloginUserInfo> {
+    return this.sfaInstance.getUserInfo();
   }
 }
 
