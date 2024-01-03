@@ -36,9 +36,9 @@
     "web3auth"
   ],
   "dependencies": {
-    "@toruslabs/openlogin-utils": "^5.0.2",
-    "@web3auth/base": "^7.0.1",
-    "@web3auth/single-factor-auth": "^7.0.1",
+    "@toruslabs/openlogin-utils": "^6.1.0",
+    "@web3auth/base": "^7.2.1",
+    "@web3auth/single-factor-auth": "^7.2.2",
     "buffer": "^6.0.3",
     "loglevel": "^1.8.1"
   },
@@ -47,19 +47,19 @@
     "react-native": "*"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.22.15",
+    "@babel/runtime": "^7.23.7",
     "@toruslabs/config": "^2.0.2",
-    "@toruslabs/eslint-config-typescript": "3.0.1",
-    "@toruslabs/torus-scripts": "^5.0.5",
+    "@toruslabs/eslint-config-typescript": "3.0.3",
+    "@toruslabs/torus-scripts": "^5.1.0",
     "@types/node": "^20",
-    "@types/react-native": "^0.72.2",
-    "eslint": "^8.49.0",
+    "@types/react-native": "^0.72.8",
+    "eslint": "^8.56.0",
     "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
-    "prettier": "^3.0.3",
-    "react-native": "~0.72.4",
-    "rimraf": "^5.0.1",
-    "typescript": "^5.2.2"
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "react-native": "~0.73.1",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
   },
   "publishConfig": {
     "access": "public"
