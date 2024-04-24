@@ -38,16 +38,24 @@
   "dependencies": {
     "@toruslabs/openlogin-utils": "^6.1.0",
     "@web3auth/base": "^7.2.1",
-    "@web3auth/single-factor-auth": "^7.2.2",
+    "@web3auth/base-plugin": "^8.3.0",
+    "@web3auth/single-factor-auth": "file:web3auth-single-factor-auth-7.4.0.tgz",
     "buffer": "^6.0.3",
     "loglevel": "^1.8.1"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.x",
+    "@babel/runtime": "^7.23.2",
     "react-native": "*"
   },
+  "overrides": {
+    "@babel/traverse": "7.22.8"
+  },
+  "resolutions": {
+    "@babel/traverse": "7.22.8",
+    "@babel/core": "7.22.8"
+  },
   "devDependencies": {
-    "@babel/runtime": "^7.23.7",
+    "@babel/runtime": "^7.23.2",
     "@toruslabs/config": "^2.0.2",
     "@toruslabs/eslint-config-typescript": "3.0.3",
     "@toruslabs/torus-scripts": "^5.1.0",
