@@ -1,6 +1,17 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BrowserStorage, OpenloginUserInfo } from "@toruslabs/openlogin-utils";
 import { CustomChainConfig, IProvider, UserAuthInfo, WalletInitializationError, WalletLoginError } from "@web3auth/base";
-import { ADAPTER_STATUS, ADAPTER_STATUS_TYPE, IWeb3Auth, SessionData, Web3Auth as SingleFactorAuth } from "@web3auth/single-factor-auth";
+import { type IPlugin } from "@web3auth/base-plugin";
+import {
+  ADAPTER_STATUS,
+  ADAPTER_STATUS_TYPE,
+  IFinalizeLoginParams,
+  IWeb3Auth,
+  SessionData,
+  Web3Auth as SingleFactorAuth,
+  Web3AuthOptions,
+} from "@web3auth/single-factor-auth";
 
 import KeyStore from "./session/KeyStore";
 import { EncryptedStorage } from "./types/IEncryptedStorage";
@@ -8,6 +19,10 @@ import { SecureStore } from "./types/IExpoSecureStore";
 import { LoginParams, PrivateKeyProvider, SdkInitOptions } from "./types/interface";
 
 class Web3Auth implements IWeb3Auth {
+  options: Web3AuthOptions;
+
+  torusPrivKey: string;
+
   public ready = false;
 
   private keyStore: KeyStore;
@@ -53,6 +68,70 @@ class Web3Auth implements IWeb3Auth {
     return this.sfaInstance.state;
   }
 
+  finalizeLogin(_params: IFinalizeLoginParams): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  emit(_type: string, ..._args: any[]): boolean {
+    throw new Error("Method not implemented.");
+  }
+
+  addListener(_eventName: string | symbol, _listener: (...args: any[]) => void): this {
+    throw new Error("Method not implemented.");
+  }
+
+  on(_eventName: string | symbol, _listener: (...args: any[]) => void): this {
+    throw new Error("Method not implemented.");
+  }
+
+  once(_eventName: string | symbol, _listener: (...args: any[]) => void): this {
+    throw new Error("Method not implemented.");
+  }
+
+  removeListener(_eventName: string | symbol, _listener: (...args: any[]) => void): this {
+    throw new Error("Method not implemented.");
+  }
+
+  off(_eventName: string | symbol, _listener: (...args: any[]) => void): this {
+    throw new Error("Method not implemented.");
+  }
+
+  removeAllListeners(_event?: string | symbol): this {
+    throw new Error("Method not implemented.");
+  }
+
+  setMaxListeners(_n: number): this {
+    throw new Error("Method not implemented.");
+  }
+
+  getMaxListeners(): number {
+    throw new Error("Method not implemented.");
+  }
+
+  listeners(_eventName: string | symbol): Function[] {
+    throw new Error("Method not implemented.");
+  }
+
+  rawListeners(_eventName: string | symbol): Function[] {
+    throw new Error("Method not implemented.");
+  }
+
+  listenerCount(_eventName: string | symbol, _listener?: Function): number {
+    throw new Error("Method not implemented.");
+  }
+
+  prependListener(_eventName: string | symbol, _listener: (...args: any[]) => void): this {
+    throw new Error("Method not implemented.");
+  }
+
+  prependOnceListener(_eventName: string | symbol, _listener: (...args: any[]) => void): this {
+    throw new Error("Method not implemented.");
+  }
+
+  eventNames(): (string | symbol)[] {
+    throw new Error("Method not implemented.");
+  }
+
   authenticateUser(): Promise<UserAuthInfo> {
     if (!this.ready) throw WalletInitializationError.notReady("Web3Auth not initialized, please call init first");
     return this.sfaInstance.authenticateUser();
@@ -61,6 +140,10 @@ class Web3Auth implements IWeb3Auth {
   addChain(chainConfig: CustomChainConfig): Promise<void> {
     if (!this.ready) throw WalletInitializationError.notReady("Web3Auth not initialized, please call init first");
     return this.sfaInstance.addChain(chainConfig);
+  }
+
+  addPlugin(plugin: IPlugin): IWeb3Auth {
+    return this.sfaInstance.addPlugin(plugin);
   }
 
   switchChain(params: { chainId: string }): Promise<void> {
