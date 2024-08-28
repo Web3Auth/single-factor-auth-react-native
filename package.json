@@ -47,7 +47,7 @@
     "react-native": "*"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.23.7",
+    "@babel/runtime": "^7.25.0",
     "@toruslabs/config": "^2.0.2",
     "@toruslabs/eslint-config-typescript": "3.0.3",
     "@toruslabs/torus-scripts": "^5.1.0",
